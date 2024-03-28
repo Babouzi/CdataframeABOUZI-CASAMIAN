@@ -1,17 +1,5 @@
 # ninja log v5
-1	146	7333393114112508	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
-148	375	7333393116315620	CDataframe.exe	919819a71ca67aaa
-3	121	7333393292051855	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
-122	291	7333393293687458	CDataframe.exe	919819a71ca67aaa
-4	114	7333393522955894	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
-115	277	7333393524513492	CDataframe.exe	919819a71ca67aaa
-3	111	7333394658151697	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
-113	274	7333394659726340	CDataframe.exe	919819a71ca67aaa
-3	99	7333396425031796	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
-100	216	7333396426161458	CDataframe.exe	919819a71ca67aaa
-3	117	7333397504767464	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
-118	279	7333397506320601	CDataframe.exe	919819a71ca67aaa
-4	125	7333398432131882	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
-127	292	7333398433728813	CDataframe.exe	919819a71ca67aaa
 3	123	7333399899700147	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
 125	284	7333399901264003	CDataframe.exe	919819a71ca67aaa
+3	130	7333412073482168	CMakeFiles/CDataframe.dir/main.c.obj	699c7aec870bebb8
+132	327	7333412075387886	CDataframe.exe	919819a71ca67aaa
