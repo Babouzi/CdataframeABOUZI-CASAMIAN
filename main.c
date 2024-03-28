@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     char *title;
@@ -9,14 +10,23 @@ typedef struct {
 
 
 
-COLUMN create_column(char* title){
-    COLUMN col;
-    col.title = *title;
+COLUMN *create_column(char* title){
+    COLUMN *col = NULL;
+    col = malloc(sizeof (COLUMN));
+    col->title = title;
+    return col;
+}
+
+void print_col(COLUMN* col){
+    int i;
+    for(i=0; i<col->TL; i++){
+        printf("[%d] %d\n", i, col->tab[i]);
+    }
 }
 
 int main() {
-    COLUMN* col;
+    COLUMN* col = create_column("Colonne 1");
+    printf("%s", col->title);
 
-    printf("Hello, World!\n");
     return 0;
 }
