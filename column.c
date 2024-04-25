@@ -10,20 +10,7 @@ COLUMN *create_column(char* title) {
         return NULL;
     }
 
-    int title_length = 0;
-    while (title[title_length] != '\0') {
-        title_length++;
-    }
-
-    new_column->title = malloc(title_length + 1);
-    if (new_column->title == NULL) {
-        free(new_column);
-        return NULL;
-    }
-
-    for (int i = 0; i <= title_length; i++) {
-        new_column->title[i] = title[i];
-    }
+    new_column->title = title;
 
     new_column->TL = 0;
     new_column->data = NULL;
