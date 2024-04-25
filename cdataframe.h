@@ -11,6 +11,6 @@ typedef struct DATAFRAME{
 
 DATAFRAME *create_dataframe(char *title);
 
-DATAFRAME *add_column(DATAFRAME *dataFrame, COLUMN *column);
+int add_column(DATAFRAME *dataFrame, COLUMN *column);
 
 #endif //CDATAFRAME_H

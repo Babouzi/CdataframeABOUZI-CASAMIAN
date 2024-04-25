@@ -12,12 +12,16 @@ DATAFRAME *create_dataframe(char *title){
     return new_dataframe;
 }
 
-DATAFRAME *add_column(DATAFRAME *data_frame, COLUMN *column){
+int add_column(DATAFRAME *data_frame, COLUMN *column){
     if (data_frame->TL >= data_frame->TP){
         data_frame->TP += 10;
         data_frame->columns = realloc(data_frame->columns, data_frame->TP * sizeof(COLUMN*));
+        if (data_frame->columns == NULL) {
+            return 0;
+        }
     }
 
     data_frame->columns[data_frame->TL] = column;
     data_frame->TL += 1;
+    return 1;
 }
