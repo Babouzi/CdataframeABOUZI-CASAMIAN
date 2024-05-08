@@ -3,6 +3,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int in(int nb, int *Tab, int TL){
+    int i;
+    for (i=0; i < TL; i++){
+        if (Tab[i] == nb){
+            return 1;
+        }
+    }
+    return 0;
+}
+
 DATAFRAME *create_dataframe(char *title){
     DATAFRAME *new_dataframe = malloc(sizeof(DATAFRAME));
     new_dataframe->title = title;
@@ -74,8 +84,6 @@ void print_nb(int nb){
     printf("|");
 }
 
-
-
 void print_dataframe(DATAFRAME *dataframe){
     int i, j, maxTL, val;
     maxTL = max_TL(dataframe);
@@ -85,7 +93,7 @@ void print_dataframe(DATAFRAME *dataframe){
         justifier(dataframe->columns[i]->title);
     }
 
-    for (i = 0; i < max_TL(dataframe); i++){
+    for (i = 0; i < maxTL; i++){
         for (j = 0; j < dataframe->TL; j++){
             if (dataframe->columns[j]->TL < i){
                 printf("     -     |");
@@ -97,5 +105,51 @@ void print_dataframe(DATAFRAME *dataframe){
         }
         printf("\n");
     }
+}
 
+void lignes_dataframe(DATAFRAME* dataframe, int l_deb, int l_fin){
+    int i, j, val;
+    printf("%s\n", dataframe->title);
+
+    for (i = 0; i < dataframe->TL; i++){
+        justifier(dataframe->columns[i]->title);
+    }
+
+    for (i = l_deb-1; i < l_fin; i++){
+        for (j = 0; j < dataframe->TL; j++){
+            if (dataframe->columns[j]->TL < i){
+                printf("     -     |");
+            }
+            else{
+                val = dataframe->columns[j]->data[i];
+                print_nb(val);
+            }
+        }
+        printf("\n");
+    }
+}
+
+void colonne_dataframe(DATAFRAME *dataframe, int *liste_c, int TL){
+    int i, j, maxTL, val;
+    maxTL = max_TL(dataframe);
+    printf("%s\n", dataframe->title);
+
+    for (i = 0; i < dataframe->TL; i++){
+        if(in(i+1,liste_c, TL) == 1)
+            justifier(dataframe->columns[i]->title);
+    }
+
+    for (i = 0; i < maxTL; i++){
+        for (j = 0; j < dataframe->TL; j++){
+            if(in(i+1,liste_c, TL) == 1) {
+                if (dataframe->columns[j]->TL < i) {
+                    printf("     -     |");
+                } else {
+                    val = dataframe->columns[j]->data[i];
+                    print_nb(val);
+                }
+            }
+        }
+        printf("\n");
+    }
 }

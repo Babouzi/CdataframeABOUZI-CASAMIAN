@@ -9,6 +9,8 @@ typedef struct DATAFRAME{
     int TL;
 }DATAFRAME;
 
+int in(int nb, int *Tab, int TL);
+
 DATAFRAME *create_dataframe(char *title);
 
 int add_column(DATAFRAME *data_frame, COLUMN *column);
