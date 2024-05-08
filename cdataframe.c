@@ -33,23 +33,66 @@ int max_TL(DATAFRAME *dataframe){
     return max;
 }
 
+void justifier(char* string){
+    int i = 0;
+    while (string[i] != '\0' &&  i < 11){
+        printf("%c", string[i]);
+        i++;
+    }
+    while(i<11){
+        printf(" ");
+        i++;
+    }
+    printf("|");
+}
+
+void print_nb(int nb){
+    int i, x=0;
+    int Tab[10];
+    for(i=0; i<10; i++){
+        Tab[i] = i % 10;
+        i = i /10;
+    }
+
+    for(i=9; i>-1; i++){
+        if (Tab[i] == 0 && x == 0){
+            printf(" ");
+        }
+        else{
+            if(x == 0){
+                x = 1;
+                if (nb < 0){
+                    printf("-");
+                }
+                else{
+                    printf(" ");
+                }
+            }
+            printf("%d", Tab[i]);
+        }
+    }
+    printf("|");
+}
+
+
+
 void print_dataframe(DATAFRAME *dataframe){
     int i, j, maxTL, val;
     maxTL = max_TL(dataframe);
     printf("%s\n", dataframe->title);
 
     for (i = 0; i < dataframe->TL; i++){
-
+        justifier(dataframe->columns[i]->title);
     }
 
     for (i = 0; i < max_TL(dataframe); i++){
         for (j = 0; j < dataframe->TL; j++){
             if (dataframe->columns[j]->TL < i){
-                printf(" - ");
+                printf("     -     |");
             }
             else{
                 val = dataframe->columns[j]->data[i];
-                printf(" %d ", val);
+                print_nb(val);
             }
         }
         printf("\n");

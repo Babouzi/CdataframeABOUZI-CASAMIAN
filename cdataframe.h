@@ -15,6 +15,10 @@ int add_column(DATAFRAME *data_frame, COLUMN *column);
 
 int max_TL(DATAFRAME *dataframe);
 
+void justifier(char* string);
+
+void print_nb(int nb);
+
 void print_dataframe(DATAFRAME *dataframe);
 
 #endif //CDATAFRAME_H
