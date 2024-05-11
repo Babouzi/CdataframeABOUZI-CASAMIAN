@@ -72,6 +72,4 @@ int count_values_less_than(COLUMN* col, int x);
  */
 int count_values_equal_to(COLUMN* col, int x);
 
-int value_max
-
 #endif //COLUMN_H

@@ -4,15 +4,32 @@
 #define REALLOC_SIZE 256
 
 
-COLUMN *create_column(char* title) {
+COLUMN *create_column(char *title) {
     COLUMN *new_column = malloc(sizeof(COLUMN));
     if (new_column == NULL) {
         return NULL;
     }
 
-    new_column->title = title;
+    // Calculate the length of the title
+    int length = 0;
+    while (title[length] != '\0') {
+        length++;
+    }
+
+    // Allocate memory for title and copy the string
+    new_column->title = malloc((length + 1) * sizeof(char)); // +1 for the null terminator
+    if (new_column->title == NULL) {
+        free(new_column); // Clean up on failure
+        return NULL;
+    }
+
+    // Copy the string character by character
+    for (int i = 0; i <= length; i++) {
+        new_column->title[i] = title[i];
+    }
 
     new_column->TL = 0;
+    new_column->TP = 0; // Initialize to zero, will be adjusted in insert_value
     new_column->data = NULL;
     return new_column;
 }
@@ -20,25 +37,29 @@ COLUMN *create_column(char* title) {
 
 int insert_value(COLUMN* col, int value) {
     if (col == NULL) {
-        return 0;
+        return 0; // Handle NULL pointer
     }
 
     int new_TP;
     if (col->TP == 0) {
-        new_TP = REALLOC_SIZE;
-    } else {
-        new_TP = col->TP + REALLOC_SIZE;
+        // Allocate memory for the data array if not already allocated
+        col->data = malloc(REALLOC_SIZE * sizeof(int));
+        if (col->data == NULL) {
+            return 0; // Memory allocation failed
+        }
+        col->TP = REALLOC_SIZE;
+    } else if (col->TL == col->TP) {
+        // Reallocate memory only if there's not enough space
+        int *new_data = realloc(col->data, (col->TP + REALLOC_SIZE) * sizeof(int));
+        if (new_data == NULL) {
+            return 0; // Memory reallocation failed
+        }
+        col->data = new_data;
+        col->TP += REALLOC_SIZE;
     }
-
-    int *new_data = realloc(col->data, new_TP * sizeof(int));
-    if (new_data == NULL) {
-        return 0;
-    }
-
-    col->data = new_data;
-    col->TP = new_TP;
+    // Insert the value and update TL
     col->data[col->TL++] = value;
-    return 1;
+    return 1; // Successfully inserted value
 }
 
 

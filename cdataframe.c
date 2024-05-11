@@ -57,21 +57,20 @@ void justifier(char* string){
 }
 
 void print_nb(int nb){
-    int i, x=0;
+    int i, x=0, signe = nb;
     int Tab[10];
     for(i=0; i<10; i++){
-        Tab[i] = i % 10;
-        i = i /10;
+        Tab[i] = nb % 10;
+        nb = nb /10;
     }
-
-    for(i=9; i>-1; i++){
+    for(i=9; i>-1; i--){
         if (Tab[i] == 0 && x == 0){
             printf(" ");
         }
         else{
             if(x == 0){
                 x = 1;
-                if (nb < 0){
+                if (signe < 0){
                     printf("-");
                 }
                 else{
@@ -93,14 +92,15 @@ void print_dataframe(DATAFRAME *dataframe){
         justifier(dataframe->columns[i]->title);
     }
 
+    printf("\n");
     for (i = 0; i < maxTL; i++){
         for (j = 0; j < dataframe->TL; j++){
-            if (dataframe->columns[j]->TL < i){
-                printf("     -     |");
-            }
-            else{
+            if (dataframe->columns[j]->TL > i){
                 val = dataframe->columns[j]->data[i];
                 print_nb(val);
+            }
+            else{
+                printf("     -     |");
             }
         }
         printf("\n");
