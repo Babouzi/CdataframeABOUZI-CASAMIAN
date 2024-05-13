@@ -25,4 +25,6 @@ void print_dataframe(DATAFRAME *dataframe);
 
 void add_ligne_data(DATAFRAME * dataframe);
 
+void del_ligne_data(DATAFRAME * dataframe, int ligne);
+
 #endif //CDATAFRAME_H

@@ -165,3 +165,20 @@ void add_ligne_data(DATAFRAME *dataframe){
         insert_value(dataframe->columns[i], val);
     }
 }
+
+void del_ligne_data(DATAFRAME *dataframe, int ligne){
+    int i, j;
+    if (max_TL(dataframe) <= ligne){
+        printf("Erreur, la ligne n'existe pas.");
+    }
+    else{
+        for (i=0; i<dataframe->TL; i++){
+            if (ligne < dataframe->columns[i]->TL) {
+                for (j = ligne; j < dataframe->columns[i]->TL - 1; j++) {
+                    dataframe->columns[i]->data[j] = dataframe->columns[i]->data[j + 1];
+                }
+                dataframe->columns[i]->TL -= 1;
+            }
+        }
+    }
+}

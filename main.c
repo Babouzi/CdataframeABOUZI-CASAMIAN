@@ -21,6 +21,8 @@ int main() {
     add_column(dataframe, col3);
     add_ligne_data(dataframe);
     print_dataframe(dataframe);
+    del_ligne_data(dataframe, 2);
+    print_dataframe(dataframe);
     delete_column(&col1);
     delete_column(&col2);
     delete_column(&col3);
