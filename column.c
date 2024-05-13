@@ -1,6 +1,7 @@
 #include "column.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define REALLOC_SIZE 256
 
 
@@ -10,23 +11,14 @@ COLUMN *create_column(char *title) {
         return NULL;
     }
 
-    // Calculate the length of the title
-    int length = 0;
-    while (title[length] != '\0') {
-        length++;
-    }
-
-    // Allocate memory for title and copy the string
-    new_column->title = malloc((length + 1) * sizeof(char)); // +1 for the null terminator
+    // Allocate memory for the title and copy the string
+    new_column->title = (char *)malloc(strlen(title) + 1);
     if (new_column->title == NULL) {
-        free(new_column); // Clean up on failure
+        // Handle memory allocation failure
+        free(new_column);
         return NULL;
     }
-
-    // Copy the string character by character
-    for (int i = 0; i <= length; i++) {
-        new_column->title[i] = title[i];
-    }
+    strcpy(new_column->title, title);
 
     new_column->TL = 0;
     new_column->TP = 0; // Initialize to zero, will be adjusted in insert_value
