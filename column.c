@@ -143,3 +143,4 @@ int count_values_equal_to(COLUMN* col, int x) {
     }
     return count;
 }
+
