@@ -1,44 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct {
-    char *title;
-    int TP;
-    int TL;
-    int *tab;
-}COLUMN;
-
-
-
-COLUMN *create_column(char* title){
-    COLUMN *col = NULL;
-    col = malloc(sizeof (COLUMN));
-    col->title = title;
-    col->TL = 0;
-    return col;
-}
-
-void print_col(COLUMN* col){
-    int i;
-    for(i=0; i<col->TL; i++){
-        printf("[%d] %d\n", i, col->tab[i]);
-    }
-}
-
-int insert_value(COLUMN* col, int value){
-    if (col->TL == 0){
-        col->TP = 256;
-        col->tab = malloc(col->TP * sizeof(int));
-    }
-    col->tab[col->TL] = value;
-    col->TL += 1;
-}
-
+#include "column.h"
+#include "cdataframe.h"
 
 int main() {
-    COLUMN* col = create_column("Colonne 1");
-    printf("%s", col->title);
-    insert_value(col, 5);
-    print_col(col);
+    COLUMN *col1 = create_column("Colonne 1"), *col2 = create_column("Colonne 2"), *col3 = create_column("Colonne 3");
+    DATAFRAME *dataframe = create_dataframe("Dataframe 1");
+    insert_value(col1, 5);
+    insert_value(col1,4);
+    insert_value(col1,7);
+    insert_value(col2,4);
+    insert_value(col2,7);
+    insert_value(col3, 5);
+    insert_value(col3,4);
+    insert_value(col3,7);
+    insert_value(col3,4);
+    insert_value(col3,-107);
+    add_column(dataframe, col1);
+    add_column(dataframe, col2);
+    add_column(dataframe, col3);
+    print_dataframe(dataframe);
+    delete_column(&col1);
+    delete_column(&col2);
+    delete_column(&col3);
     return 0;
 }
