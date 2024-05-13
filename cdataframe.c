@@ -59,6 +59,9 @@ void justifier(char* string){
 void print_nb(int nb){
     int i, x=0, signe = nb;
     int Tab[10];
+    if(signe < 0){
+        nb = -nb;
+    }
     for(i=0; i<10; i++){
         Tab[i] = nb % 10;
         nb = nb /10;

@@ -15,7 +15,7 @@ int main() {
     insert_value(col3,4);
     insert_value(col3,7);
     insert_value(col3,4);
-    insert_value(col3,7);
+    insert_value(col3,-107);
     add_column(dataframe, col1);
     add_column(dataframe, col2);
     add_column(dataframe, col3);
