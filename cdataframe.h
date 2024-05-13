@@ -23,4 +23,6 @@ void print_nb(int nb);
 
 void print_dataframe(DATAFRAME *dataframe);
 
+void add_ligne_data(DATAFRAME * dataframe);
+
 #endif //CDATAFRAME_H

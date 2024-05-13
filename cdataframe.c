@@ -156,3 +156,12 @@ void colonne_dataframe(DATAFRAME *dataframe, int *liste_c, int TL){
         printf("\n");
     }
 }
+
+void add_ligne_data(DATAFRAME *dataframe){
+    int i, val;
+    for (i=0; i<dataframe->TL; i++){
+        printf("Ajouter la valeur de la colonne %d : ", i + 1);
+        scanf(" %d", &val);
+        insert_value(dataframe->columns[i], val);
+    }
+}
