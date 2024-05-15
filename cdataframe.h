@@ -27,4 +27,8 @@ void add_ligne_data(DATAFRAME * dataframe);
 
 void del_ligne_data(DATAFRAME * dataframe, int ligne);
 
+void del_columns_data(DATAFRAME *dataframe, int nb_col);
+
+void del_dataframe(DATAFRAME *dataframe);
+
 #endif //CDATAFRAME_H

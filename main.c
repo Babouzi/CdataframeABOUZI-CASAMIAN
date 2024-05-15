@@ -19,12 +19,12 @@ int main() {
     add_column(dataframe, col1);
     add_column(dataframe, col2);
     add_column(dataframe, col3);
+    add_column(dataframe, create_column("Colonne 4"));
     add_ligne_data(dataframe);
     print_dataframe(dataframe);
     del_ligne_data(dataframe, 2);
+    ///del_columns_data(dataframe, 1);
     print_dataframe(dataframe);
-    delete_column(&col1);
-    delete_column(&col2);
-    delete_column(&col3);
+    del_dataframe(dataframe);
     return 0;
 }

@@ -2,6 +2,7 @@
 #include "column.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int in(int nb, int *Tab, int TL){
     int i;
@@ -16,6 +17,14 @@ int in(int nb, int *Tab, int TL){
 DATAFRAME *create_dataframe(char *title){
     DATAFRAME *new_dataframe = malloc(sizeof(DATAFRAME));
     new_dataframe->title = title;
+    new_dataframe->title = (char *)malloc(strlen(title) + 1);
+    if (new_dataframe->title == NULL) {
+        // Handle memory allocation failure
+        free(new_dataframe);
+        return NULL;
+    }
+    strcpy(new_dataframe->title, title);
+
     new_dataframe->TP = 10;
     new_dataframe->TL = 0;
     new_dataframe->columns = malloc(10* sizeof (COLUMN*));
@@ -181,4 +190,31 @@ void del_ligne_data(DATAFRAME *dataframe, int ligne){
             }
         }
     }
+}
+
+void del_columns_data(DATAFRAME *dataframe, int nb_col){
+    DATAFRAME **tmp;
+    int i;
+    if(nb_col > dataframe->TL){
+        printf("Erreur, cette colonne n'existe pas\n");
+    }
+    else {
+        for (i = nb_col; i < dataframe->TL -1; i++) {
+            delete_column(&dataframe->columns[i]);
+            tmp = &dataframe->columns[i +1];
+            dataframe->columns[i] = *tmp;
+            strcpy(dataframe->columns[i]->title, dataframe->columns[i+1]->title);
+        }
+
+        dataframe->TL -= 1;
+    }
+}
+
+void del_dataframe(DATAFRAME *dataframe){
+    int i;
+    free((dataframe)->title);
+    for (i=0; i < dataframe->TL; i++){
+        delete_column(&dataframe->columns[i]);
+    }
+    free(dataframe);
 }
