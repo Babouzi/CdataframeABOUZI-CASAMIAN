@@ -213,7 +213,7 @@ void del_ligne_data(DATAFRAME *dataframe, int ligne){
 }
 
 void del_columns_data(DATAFRAME *dataframe, int nb_col){
-    DATAFRAME **tmp;
+    COLUMN *tmp;
     int i;
     if(nb_col > dataframe->TL){
         printf("Erreur, cette colonne n'existe pas\n");
@@ -222,7 +222,7 @@ void del_columns_data(DATAFRAME *dataframe, int nb_col){
         for (i = nb_col; i < dataframe->TL -1; i++) {
             delete_column(&dataframe->columns[i]);
             tmp = &dataframe->columns[i +1];
-            dataframe->columns[i] = *tmp;
+            dataframe->columns[i] = tmp;
             strcpy(dataframe->columns[i]->title, dataframe->columns[i+1]->title);
         }
 

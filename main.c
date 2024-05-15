@@ -6,7 +6,7 @@
 int main() {
     COLUMN *col1 = create_column("Colonne 1"), *col2 = create_column("Colonne 2"), *col3 = create_column("Colonne 3");
     DATAFRAME *dataframe = create_dataframe("Dataframe 1");
-    for(int i=0; i < 100; i++) {
+    for(int i=0; i < 1; i++) {
         insert_value(col1, 5);
         insert_value(col1, 4);
         insert_value(col1, 7);
