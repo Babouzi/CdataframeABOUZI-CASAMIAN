@@ -6,16 +6,18 @@
 int main() {
     COLUMN *col1 = create_column("Colonne 1"), *col2 = create_column("Colonne 2"), *col3 = create_column("Colonne 3");
     DATAFRAME *dataframe = create_dataframe("Dataframe 1");
-    insert_value(col1, 5);
-    insert_value(col1,4);
-    insert_value(col1,7);
-    insert_value(col2,4);
-    insert_value(col2,7);
-    insert_value(col3, 5);
-    insert_value(col3,4);
-    insert_value(col3,7);
-    insert_value(col3,4);
-    insert_value(col3,-107);
+    for(int i=0; i < 100; i++) {
+        insert_value(col1, 5);
+        insert_value(col1, 4);
+        insert_value(col1, 7);
+        insert_value(col2, 4);
+        insert_value(col2, 7);
+        insert_value(col3, 5);
+        insert_value(col3, 4);
+        insert_value(col3, 7);
+        insert_value(col3, 4);
+        insert_value(col3, -107);
+    }
     add_column(dataframe, col1);
     add_column(dataframe, col2);
     add_column(dataframe, col3);

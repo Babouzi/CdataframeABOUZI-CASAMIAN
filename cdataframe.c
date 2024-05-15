@@ -8,10 +8,10 @@ int in(int nb, int *Tab, int TL){
     int i;
     for (i=0; i < TL; i++){
         if (Tab[i] == nb){
-            return 1;
+            return i;
         }
     }
-    return 0;
+    return -1;
 }
 
 DATAFRAME *create_dataframe(char *title){
@@ -95,17 +95,36 @@ void print_nb(int nb){
     printf("|");
 }
 
+void print_nb_col(int nb, int max_nb){
+    int i = 0, j = 0, copy_nb = nb, k;
+    do{
+        i += 1;
+        max_nb /=10;
+    }while (max_nb > 0);
+    do{
+        j += 1;
+        copy_nb /=10;
+    }while (copy_nb > 0);
+    for (k=0; k <= i - j; k++){
+        printf(" ");
+    }
+    printf("%d|", nb);
+
+}
+
 void print_dataframe(DATAFRAME *dataframe){
     int i, j, maxTL, val;
     maxTL = max_TL(dataframe);
     printf("%s\n", dataframe->title);
 
+    print_nb_col(0, maxTL);
     for (i = 0; i < dataframe->TL; i++){
         justifier(dataframe->columns[i]->title);
     }
 
     printf("\n");
     for (i = 0; i < maxTL; i++){
+        print_nb_col(i+1, maxTL);
         for (j = 0; j < dataframe->TL; j++){
             if (dataframe->columns[j]->TL > i){
                 val = dataframe->columns[j]->data[i];
@@ -147,13 +166,13 @@ void colonne_dataframe(DATAFRAME *dataframe, int *liste_c, int TL){
     printf("%s\n", dataframe->title);
 
     for (i = 0; i < dataframe->TL; i++){
-        if(in(i+1,liste_c, TL) == 1)
+        if(in(i+1,liste_c, TL) != -1)
             justifier(dataframe->columns[i]->title);
     }
 
     for (i = 0; i < maxTL; i++){
         for (j = 0; j < dataframe->TL; j++){
-            if(in(i+1,liste_c, TL) == 1) {
+            if(in(i+1,liste_c, TL) != -1) {
                 if (dataframe->columns[j]->TL < i) {
                     printf("     -     |");
                 } else {
@@ -169,8 +188,9 @@ void colonne_dataframe(DATAFRAME *dataframe, int *liste_c, int TL){
 void add_ligne_data(DATAFRAME *dataframe){
     int i, val;
     for (i=0; i<dataframe->TL; i++){
-        printf("Ajouter la valeur de la colonne %d : ", i + 1);
+        printf("Ajouter la valeur de %s : ", dataframe->columns[i]->title);
         scanf(" %d", &val);
+        printf("\n");
         insert_value(dataframe->columns[i], val);
     }
 }
@@ -221,4 +241,21 @@ void del_dataframe(DATAFRAME *dataframe){
 
 void rename_col_data(DATAFRAME *dataframe, int nb_col, char *new_title){
     strcpy(dataframe->columns[nb_col - 1]->title, new_title);
+}
+
+int is_in_dataframe(DATAFRAME *dataframe, int val){
+    int i, pos;
+    for (i=0; i < dataframe->TL; i++){
+        pos = in(val, dataframe->columns[i]->data, dataframe->columns[i]->TL);
+        if(pos != -1){
+            printf("La valeur se trouve a la ligne %d du dataframe, dans la colonne : %s\n", pos, dataframe->columns[i]->title);
+            return 1;
+        }
+    }
+    printf("La valeur ne se trouve pas dans le dataframe.\n");
+    return -1;
+}
+
+void change_value_dataframe(DATAFRAME *dataframe){
+
 }

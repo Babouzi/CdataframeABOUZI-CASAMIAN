@@ -35,4 +35,6 @@ void rename_col_data(DATAFRAME *dataframe, int nb_col, char *new_title);
 
 int is_in_dataframe(DATAFRAME *dataframe, int val);
 
+void change_value_dataframe(DATAFRAME *dataframe);
+
 #endif //CDATAFRAME_H
