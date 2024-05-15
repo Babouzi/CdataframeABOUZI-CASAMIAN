@@ -26,6 +26,8 @@ int main() {
     ///del_columns_data(dataframe, 1);
     rename_col_data(dataframe, 1, "Nouvelle_colonne");
     print_dataframe(dataframe);
+    printf("%d", is_in_dataframe(dataframe, 22));
+
     del_dataframe(dataframe);
     return 0;
 }

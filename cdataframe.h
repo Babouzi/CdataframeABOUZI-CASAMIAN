@@ -31,4 +31,8 @@ void del_columns_data(DATAFRAME *dataframe, int nb_col);
 
 void del_dataframe(DATAFRAME *dataframe);
 
+void rename_col_data(DATAFRAME *dataframe, int nb_col, char *new_title);
+
+int is_in_dataframe(DATAFRAME *dataframe, int val);
+
 #endif //CDATAFRAME_H
