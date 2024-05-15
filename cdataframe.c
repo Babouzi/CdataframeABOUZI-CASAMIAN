@@ -218,3 +218,7 @@ void del_dataframe(DATAFRAME *dataframe){
     }
     free(dataframe);
 }
+
+void rename_col_data(DATAFRAME *dataframe, int nb_col, char *new_title){
+    strcpy(dataframe->columns[nb_col - 1]->title, new_title);
+}

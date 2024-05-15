@@ -24,6 +24,7 @@ int main() {
     print_dataframe(dataframe);
     del_ligne_data(dataframe, 2);
     ///del_columns_data(dataframe, 1);
+    rename_col_data(dataframe, 1, "Nouvelle_colonne");
     print_dataframe(dataframe);
     del_dataframe(dataframe);
     return 0;

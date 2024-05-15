@@ -89,4 +89,6 @@ int count_values_less_than(COLUMN* col, int x);
  */
 int count_values_equal_to(COLUMN* col, int x);
 
+
+
 #endif //COLUMN_H
