@@ -35,6 +35,18 @@ void rename_col_data(DATAFRAME *dataframe, int nb_col, char *new_title);
 
 int is_in_dataframe(DATAFRAME *dataframe, int val);
 
-void change_value_dataframe(DATAFRAME *dataframe);
+void change_value_dataframe(DATAFRAME *dataframe, int ligne, int colonne, int new_val);
+
+void print_titles_data(DATAFRAME *dataframe);
+
+void nb_lignes_data(DATAFRAME *dataframe);
+
+void nb_colonnes_data(DATAFRAME *dataframe);
+
+int nb_value_equal(DATAFRAME *dataframe, int val);
+
+int nb_value_over(DATAFRAME *dataframe, int val);
+
+int nb_value_under(DATAFRAME *dataframe, int val);
 
 #endif //CDATAFRAME_H

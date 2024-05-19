@@ -221,7 +221,7 @@ void del_columns_data(DATAFRAME *dataframe, int nb_col){
     else {
         for (i = nb_col; i < dataframe->TL -1; i++) {
             delete_column(&dataframe->columns[i]);
-            tmp = &dataframe->columns[i +1];
+            tmp = dataframe->columns[i +1];
             dataframe->columns[i] = tmp;
             strcpy(dataframe->columns[i]->title, dataframe->columns[i+1]->title);
         }
@@ -256,6 +256,58 @@ int is_in_dataframe(DATAFRAME *dataframe, int val){
     return -1;
 }
 
-void change_value_dataframe(DATAFRAME *dataframe){
+void change_value_dataframe(DATAFRAME *dataframe, int ligne, int colonne, int new_val){
+    dataframe->columns[colonne - 1]->data[ligne-1] = new_val;
+}
 
+void print_titles_data(DATAFRAME *dataframe){
+    int i;
+    for (i = 0; i < dataframe->TL; i++){
+        printf("%s |", dataframe->columns[i]->title);
+    }
+}
+
+void nb_lignes_data(DATAFRAME *dataframe){
+    printf("%s comporte %d lignes", dataframe->title, max_TL(dataframe));
+}
+
+void nb_colonnes_data(DATAFRAME *dataframe){
+    printf("%s comporte %d col", dataframe->title, dataframe->TL);
+}
+
+int nb_value_equal(DATAFRAME *dataframe, int val) {
+    int i, j, tot = 0, nb_lignes = max_TL(dataframe);
+    for (i = 0; i < dataframe->TL; i++) {
+        for (j = 0; j < nb_lignes; j++) {
+            if (dataframe->columns[i]->data[j] == val) {
+                tot += 1;
+            }
+        }
+    }
+    return tot;
+}
+
+
+int nb_value_over(DATAFRAME *dataframe, int val){
+    int i, j, tot = 0, nb_lignes = max_TL(dataframe);
+    for (i = 0; i < dataframe->TL; i++) {
+        for (j = 0; j < nb_lignes; j++) {
+            if (dataframe->columns[i]->data[j] > val) {
+                tot += 1;
+            }
+        }
+    }
+    return tot;
+}
+
+int nb_value_under(DATAFRAME *dataframe, int val){
+    int i, j, tot = 0, nb_lignes = max_TL(dataframe);
+    for (i = 0; i < dataframe->TL; i++) {
+        for (j = 0; j < nb_lignes; j++) {
+            if (dataframe->columns[i]->data[j] < val) {
+                tot += 1;
+            }
+        }
+    }
+    return tot;
 }
