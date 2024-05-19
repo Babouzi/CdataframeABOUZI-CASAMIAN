@@ -49,4 +49,6 @@ int nb_value_over(DATAFRAME *dataframe, int val);
 
 int nb_value_under(DATAFRAME *dataframe, int val);
 
+void insert_value_data(DATAFRAME *dataframe, int col, int val);
+
 #endif //CDATAFRAME_H

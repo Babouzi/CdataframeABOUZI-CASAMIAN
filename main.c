@@ -3,37 +3,140 @@
 #include "column.h"
 #include "cdataframe.h"
 
-int main() {
-    COLUMN *col1 = create_column("Colonne 1"), *col2 = create_column("Colonne 2"), *col3 = create_column("Colonne 3");
-    DATAFRAME *dataframe = create_dataframe("Dataframe 1");
-    for(int i=0; i < 1; i++) {
-        insert_value(col1, 5);
-        insert_value(col1, 4);
-        insert_value(col1, 7);
-        insert_value(col2, 4);
-        insert_value(col2, 7);
-        insert_value(col3, 5);
-        insert_value(col3, 4);
-        insert_value(col3, 7);
-        insert_value(col3, 4);
-        insert_value(col3, -107);
+void clear_endline(char *txt){
+    int i;
+    for (i=0; txt[i] != '\0'; i++){
+        i += 1;
     }
-    add_column(dataframe, col1);
-    add_column(dataframe, col2);
-    add_column(dataframe, col3);
-    add_column(dataframe, create_column("Colonne 4"));
-    ///add_ligne_data(dataframe);
-    ////print_dataframe(dataframe);
-    ///del_ligne_data(dataframe, 2);
-    ///del_columns_data(dataframe, 1);
-    rename_col_data(dataframe, 1, "Nouvelle_colonne");
-    change_value_dataframe(dataframe, 1, 3, 30);
-    print_dataframe(dataframe);
-    printf("%d\n", is_in_dataframe(dataframe, 22));
+    txt[i-1] = '\0';
+}
+
+int main() {
+    int start = 1, all_dataframes_TL = 0, i, number, ligne, colonne;
+    char command[10], title[100], empty_buffer;
+    DATAFRAME **all_dataframes, no_data;
+    all_dataframes = malloc(10 * sizeof(DATAFRAME*));
+    DATAFRAME *dataframe = &no_data;
+
+    while (start == 1) {
+        printf("Que voulez-vous faire, entrez '?' pour avoir la liste des commande :");
+        fgets(command, 10, stdin);
+        ///printf("\n");
+        if (command[0] == '?') { ///&& command[1] == '\0'){
+            printf("Liste des commandes :\n_'stop' pour arreter le programme\n_'print' pour afficher le dataframe\n");
+            printf("_'new_d'pour creer un nouveau dataframe\n_'change_d' pour changer le dataframe etudie\n");
+            printf("_'add_c'pour ajouter une colonne\n_'add_l' pour ajouter une ligne\n_'modif' pour modifier une case precise\n");
+            printf("_'add_v'pour ajouter une valeur dans une colonne du dataframe\n");
+        }
+        if (command[0] == 's' && command[1] == 't' && command[2] == 'o' && command[3] == 'p') {
+            start = 0;
+        }
+        if (command[0] == 'p' && command[1] == 'r' && command[2] == 'i' && command[3] == 'n' && command[4] == 't') {
+            if (dataframe == &no_data) {
+                printf("Vous ne travaillez actuellement dans aucun dataframe, entrez 'change_d' pour choisir votre dataframe, ou 'new_d' pour en creer un nouveau.\n");
+            } else {
+                print_dataframe(dataframe);
+            }
+
+        }
+        if (command[0] == 'n' && command[1] == 'e' && command[2] == 'w' && command[3] == '_' && command[4] == 'd') {
+            printf("Entrez un titre pour le dataframe : \n");
+            fgets(title, 100, stdin);
+            clear_endline(title);
+            DATAFRAME *new_dataframe = create_dataframe(title);
+            if (all_dataframes_TL < 10) {
+                all_dataframes_TL += 1;
+                all_dataframes[all_dataframes_TL - 1] = new_dataframe;
+            } else {
+                printf("Vous ne pouvez pas rajouter de dataframe car vous ne pouvez creer q'un maximum de 10 dataframe different\n");
+            }
+
+        }
+        if (command[0] == 'c' && command[1] == 'h' && command[2] == 'a' && command[3] == 'n' && command[4] == 'g' &&
+            command[5] == 'e' && command[6] == '_' && command[7] == 'd') {
+            if (all_dataframes_TL == 0) {
+                printf("Vous n'avez cree aucun dataframe.\n");
+            } else {
+                printf("Quel dataframe voulez-vous utiliser ?");
+                for (i = 0; i < all_dataframes_TL; i++) {
+                    printf("\n%d.%s", i + 1, all_dataframes[i]->title);
+                }
+                scanf(" %d", &number);
+                dataframe = all_dataframes[number - 1];
+                scanf("%c", &empty_buffer);
+            }
+        }
+        if (command[0] == 'a' && command[1] == 'd' && command[2] == 'd' && command[3] == '_' && command[4] == 'c') {
+            if (dataframe == &no_data) {
+                printf("Vous ne travaillez actuellement dans aucun dataframe, entrez 'change_d' pour choisir votre dataframe, ou 'new_d' pour en creer un nouveau.\n");
+            } else {
+                printf("Entrez un titre pour la nouvelle colonne : \n");
+                fgets(title, 100, stdin);
+                clear_endline(title);
+                add_column(dataframe, create_column(title));
+            }
+
+        }
+        if (command[0] == 'a' && command[1] == 'd' && command[2] == 'd' && command[3] == '_' && command[4] == 'l') {
+            if (dataframe == &no_data) {
+                printf("Vous ne travaillez actuellement dans aucun dataframe, entrez 'change_d' pour choisir votre dataframe, ou 'new_d' pour en creer un nouveau.\n");
+            } else {
+                if (dataframe->TL == 0){
+                    printf("Le dataframe ne comporte pas de colonne, veuillez rajoutez au moins une colonne avnt  de rajouter des lignes.");
+                }else{
+                    add_ligne_data(dataframe);
+                    scanf("%c", &empty_buffer);
+                }
+            }
 
 
-    print_titles_data(dataframe);
-    del_dataframe(dataframe);
+        }
+        if (command[0] == 'm' && command[1] == 'o' && command[2] == 'd' && command[3] == 'i' && command[4] == 'f') {
+            if (dataframe == &no_data) {
+                printf("Vous ne travaillez actuellement dans aucun dataframe, entrez 'change_d' pour choisir votre dataframe, ou 'new_d' pour en creer un nouveau.\n");
+            } else {
+                printf("Quelle colonne veux-tu modifier (numero commencant par 1)?");
+                scanf("%d", &colonne);
+                printf("Quelle ligne veux-tu modifier (numero commencant par 1)?");
+                scanf("%d", &ligne);
+                printf("Quelle valeur veux-tu mettre dans cette case?");
+                scanf("%d", &number);
+                change_value_dataframe(dataframe, ligne, colonne, number);
+                scanf("%c", &empty_buffer);
+            }
+
+        }
+        if (command[0] == 'a' && command[1] == 'd' && command[2] == 'd' && command[3] == '_' && command[4] == 'v') {
+            if (dataframe == &no_data) {
+                printf("Vous ne travaillez actuellement dans aucun dataframe, entrez 'change_d' pour choisir votre dataframe, ou 'new_d' pour en creer un nouveau.\n");
+            } else {
+                printf("Dans quelle colonne voulez-vous ajouter une valeur (numero commencant par 1)?");
+                scanf("%d", &colonne);
+                if (colonne > dataframe->TL) {
+                    printf("Cette colonne n'existe pas.");
+                }else{
+                    printf("Quelle valeur voulez-vous ajouter?");
+                    scanf("%d", &number);
+                    insert_value_data(dataframe, colonne, number);
+                }
+                scanf("%c", &empty_buffer);
+            }
+
+        }
+    }
+    for(i=0; i<all_dataframes_TL; i++){
+        del_dataframe(all_dataframes[i]);
+    }
     return 0;
+
+
+
+
+
+
+
+
+
+
 }
 

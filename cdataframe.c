@@ -115,7 +115,7 @@ void print_nb_col(int nb, int max_nb){
 void print_dataframe(DATAFRAME *dataframe){
     int i, j, maxTL, val;
     maxTL = max_TL(dataframe);
-    printf("%s\n", dataframe->title);
+    printf("%s :\n", dataframe->title);
 
     print_nb_col(0, maxTL);
     for (i = 0; i < dataframe->TL; i++){
@@ -257,7 +257,17 @@ int is_in_dataframe(DATAFRAME *dataframe, int val){
 }
 
 void change_value_dataframe(DATAFRAME *dataframe, int ligne, int colonne, int new_val){
-    dataframe->columns[colonne - 1]->data[ligne-1] = new_val;
+    if (colonne > dataframe->TL){
+        printf("Erreur, cette colonne n'existe pas.\n");
+    }
+    else{
+        while(ligne > dataframe->columns[colonne - 1]->TL ){
+            dataframe->columns[colonne - 1]->data[dataframe->columns[colonne - 1]->TL] = 0;
+            dataframe->columns[colonne - 1]->TL += 1;
+        }
+        dataframe->columns[colonne - 1]->data[ligne-1] = new_val;
+    }
+
 }
 
 void print_titles_data(DATAFRAME *dataframe){
@@ -310,4 +320,8 @@ int nb_value_under(DATAFRAME *dataframe, int val){
         }
     }
     return tot;
+}
+
+void insert_value_data(DATAFRAME *dataframe, int col, int val){
+    insert_value(dataframe->columns[col - 1], val);
 }
