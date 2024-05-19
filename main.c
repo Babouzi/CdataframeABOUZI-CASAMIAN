@@ -7,6 +7,9 @@ void clear_endline(char *txt){
     int i;
     for (i=0; txt[i] != '\0'; i++){
         i += 1;
+        if(txt[i] == '\n'){
+            txt[i] = '\0';
+        }
     }
     txt[i-1] = '\0';
 }
