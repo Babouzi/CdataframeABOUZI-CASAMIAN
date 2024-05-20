@@ -188,7 +188,7 @@ int main() {
             } else {
                 del_dataframe(dataframe);
                 dataframe = &no_data;
-                printf("Le dataframe a ete supprime.");
+                printf("Le dataframe a ete supprime.\n");
             }
 
         }
