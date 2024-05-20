@@ -30,6 +30,7 @@ int main() {
             printf("_'new_d'pour creer un nouveau dataframe\n_'change_d' pour changer le dataframe etudie\n");
             printf("_'add_c'pour ajouter une colonne\n_'add_l' pour ajouter une ligne\n_'modif' pour modifier une case precise\n");
             printf("_'add_v'pour ajouter une valeur dans une colonne du dataframe\n_'analyse' pour ouvrir l'outil de comparaison du dataframe\n");
+            printf("_'supp_l'pour supprimer une ligne du dataframe\n_'supp_d' pour supprimer le dataframe\n");
         }
         if (command[0] == 's' && command[1] == 't' && command[2] == 'o' && command[3] == 'p') {
             start = 0;
@@ -169,6 +170,27 @@ int main() {
                 }
             }
             scanf("%c", &empty_buffer);
+        }
+        if (command[0] == 's' && command[1] == 'u' && command[2] == 'p' && command[3] == 'p' && command[4] == '_' && command[5] == 'l') {
+            if (dataframe == &no_data) {
+                printf("Vous ne travaillez actuellement dans aucun dataframe, entrez 'change_d' pour choisir votre dataframe, ou 'new_d' pour en creer un nouveau.\n");
+            } else {
+                printf("Quelle ligne voulez-vous supprimer?\n");
+                scanf(" %d", &number);
+                del_columns_data(dataframe, number);
+                scanf("%c", &empty_buffer);
+            }
+
+        }
+        if (command[0] == 's' && command[1] == 'u' && command[2] == 'p' && command[3] == 'p' && command[4] == '_' && command[5] == 'd') {
+            if (dataframe == &no_data) {
+                printf("Vous ne travaillez actuellement dans aucun dataframe, entrez 'change_d' pour choisir votre dataframe, ou 'new_d' pour en creer un nouveau.\n");
+            } else {
+                del_dataframe(dataframe);
+                dataframe = &no_data;
+                printf("Le dataframe a ete supprime.");
+            }
+
         }
     }
     for(i=0; i<all_dataframes_TL; i++){

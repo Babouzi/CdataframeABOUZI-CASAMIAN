@@ -262,8 +262,7 @@ void change_value_dataframe(DATAFRAME *dataframe, int ligne, int colonne, int ne
     }
     else{
         while(ligne > dataframe->columns[colonne - 1]->TL ){
-            dataframe->columns[colonne - 1]->data[dataframe->columns[colonne - 1]->TL] = 0;
-            dataframe->columns[colonne - 1]->TL += 1;
+            insert_value(dataframe->columns[colonne - 1], 0);
         }
         dataframe->columns[colonne - 1]->data[ligne-1] = new_val;
     }
