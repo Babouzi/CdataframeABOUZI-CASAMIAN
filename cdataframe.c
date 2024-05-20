@@ -248,7 +248,7 @@ int is_in_dataframe(DATAFRAME *dataframe, int val){
     for (i=0; i < dataframe->TL; i++){
         pos = in(val, dataframe->columns[i]->data, dataframe->columns[i]->TL);
         if(pos != -1){
-            printf("La valeur se trouve a la ligne %d du dataframe, dans la colonne : %s\n", pos, dataframe->columns[i]->title);
+            printf("La valeur se trouve a la ligne %d du dataframe, dans la colonne : %s\n", pos + 1, dataframe->columns[i]->title);
             return 1;
         }
     }
